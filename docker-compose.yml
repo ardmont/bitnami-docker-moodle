@@ -1,21 +1,32 @@
-version: '2'
+version: '3'
 services:
   mariadb:
-    image: 'bitnami/mariadb:10.1'
+    image: 'bitnami/mariadb:latest'
     environment:
-      - MARIADB_USER=bn_moodle
-      - MARIADB_DATABASE=bitnami_moodle
-      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_DATABASE=
+      - MARIADB_ROOT_USER=
+      - MARIADB_ROOT_PASSWORD=
     volumes:
-      - 'mariadb_data:/bitnami'
+      - 'mariadb_data:/bitnami/mariadb'
+    ports: 
+      - '3306:3306'
   moodle:
     image: 'bitnami/moodle:3'
     environment:
       - MARIADB_HOST=mariadb
       - MARIADB_PORT_NUMBER=3306
-      - MOODLE_DATABASE_USER=bn_moodle
-      - MOODLE_DATABASE_NAME=bitnami_moodle
-      - ALLOW_EMPTY_PASSWORD=yes
+      - MOODLE_DATABASE_NAME=
+      - MOODLE_DATABASE_USER=
+      - MOODLE_DATABASE_PASSWORD=
+      - MOODLE_USERNAME=
+      - MOODLE_PASSWORD=
+      - MOODLE_EMAIL=
+      - SMTP_HOST=
+      - SMTP_PORT=
+      - SMTP_USER=
+      - SMTP_PASSWORD=
+      - SMTP_PROTOCOL=
+
     ports:
       - '80:80'
       - '443:443'
